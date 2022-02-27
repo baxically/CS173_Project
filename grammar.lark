@@ -1,0 +1,16 @@
+?start: conditional
+
+?conditional: "if" predicates "then" statements
+
+?predicates: predicate
+        | predicate "and" predicates
+        | predicate "or" predicates
+
+?statements: statement
+        | statement "and" statements
+
+%import common.CNAME -> NAME
+%import common.NUMBER
+%import common.WS_INLINE
+
+%ignore WS_INLINE
