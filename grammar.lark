@@ -1,15 +1,55 @@
-?start: conditional
+start: "if" predicates "then" statements
 
-?conditional: "if" predicates "then" statements
+predicates: predicate
+    | predicate "and" predicates    -> predicate_and
+    | predicate "or" predicates     -> predicate_or           
+    | NEGATION predicates
 
-?predicates: predicate
-        | predicate "and" predicates
-        | predicate "or" predicates
+predicate: variable | variable comparison_operator variable | predicate_statement comparison_operator variable
 
-?statements: statement
-        | statement "and" statements
+variable: NUMBER | IDENTIFIER
 
-%import common.CNAME -> NAME
+IDENTIFIER: /[a-zA-Z_]+[a-zA-Z0-9_]*/
+
+comparison_operator: EQUALS | NOT_EQUAL | GREATER | GREATER_OR_EQUAL | LESS | LESS_OR_EQUAL
+
+EQUALS: /equal(s)?/ | /is equal(s)? to/ | "="
+
+NOT_EQUAL: /(isn't|doesn't|is not|does not) equal (to)?/
+
+GREATER: /(is)? greater (than)?/ | ">" 
+
+GREATER_OR_EQUAL: /(is)? greater equal(s)? (than)?/
+
+LESS: /(is)? less (than)?/ | "<"
+
+LESS_OR_EQUAL: /(is)? less equal(s)? (than)?/
+
+predicate_statement: variable operator variable 
+
+operator: PLUS | MINUS | MULTIPLY | DIVIDE
+
+PLUS: "+" | "plus"
+
+MINUS: "-" | "minus"
+
+MULTIPLY: "*" | "multiply"
+
+DIVIDE: "/" | "divide"
+
+MODULO: "modulo" | "mod" | "%"
+
+NEGATION: "!" | "not"
+
+statements: statement 
+    | statement "and" statements -> join_statements
+
+statement: declaration | assignment
+
+declaration: "declare" IDENTIFIER "as" IDENTIFIER
+
+assignment: "set" IDENTIFIER "to" NUMBER
+
 %import common.NUMBER
 %import common.WS_INLINE
 
