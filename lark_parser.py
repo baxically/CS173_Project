@@ -71,10 +71,10 @@ class SpeechTree(Transformer):
     def statement(self, stmt):
         return f"\t{stmt};"
     
-    def declaration(self, name, type):
+    # Regex treated as a non-terminal which is passed as an argument to the functions
+    def declaration(self, name, _, type):
         return f"{type} {name}"
     
-    # Regex treated as a non-terminal
     def assignment(self, var, _, value):
         return f"{var} = {value}"
 
