@@ -74,7 +74,8 @@ class SpeechTree(Transformer):
     def declaration(self, name, type):
         return f"{type} {name}"
     
-    def assignment(self, var, value):
+    # Regex treated as a non-terminal
+    def assignment(self, var, _, value):
         return f"{var} = {value}"
 
 speech_parser = Lark(speech_grammar, parser='lalr', transformer=SpeechTree(visit_tokens=True))
