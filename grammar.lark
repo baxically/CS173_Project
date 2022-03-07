@@ -15,17 +15,17 @@ IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]{0,254}/
 
 comparison_operator: EQUALS | NOT_EQUAL | GREATER | GREATER_OR_EQUAL | LESS | LESS_OR_EQUAL
 
-EQUALS: /equal(s)? (to)?/ | /is equal(s)? to/ | "="
+EQUALS: /equals?( to)?/ | /is equals? to/ | "="
 
-NOT_EQUAL: /(isn't|doesn't|is not|does not) equal (to)?/
+NOT_EQUAL: /(isn't|doesn't|is not|does not) equal( to)?/
 
-GREATER: /(is)? greater (than)?/ | ">" 
+GREATER: /(is )?greater( than)?/ | ">" 
 
-GREATER_OR_EQUAL: /(is)? greater or equal(s)? (than)?/  | ">="
+GREATER_OR_EQUAL: /(is )?greater or equals?( than)?/  | ">="
 
-LESS: /(is)? less (than)?/ | "<"
+LESS: /(is )?less( than)?/ | "<"
 
-LESS_OR_EQUAL: /(is)? less or equal(s)? (than)?/ | "<="
+LESS_OR_EQUAL: /(is )?less or equals?( than)?/ | "<="
 
 predicate_statement: variable operator variable 
 
@@ -35,9 +35,9 @@ PLUS: "+" | "plus"
 
 MINUS: "-" | "minus"
 
-MULTIPLY: "*" | "multiply" | "multiply by"
+MULTIPLY: "*" | "multiply" | "multiply by" | "times"
 
-DIVIDE: "/" | "divide"
+DIVIDE: "/" | /divided?/
 
 MODULO: "modulo" | "mod" | "%"
 
@@ -48,9 +48,9 @@ statements: statement
 
 statement: declaration | assignment
 
-declaration: "declare" IDENTIFIER "as" IDENTIFIER
+declaration: "declare" IDENTIFIER /as( a)?/ IDENTIFIER
 
-assignment: "set" IDENTIFIER "equal to" variable | "set" IDENTIFIER "equal to" predicate_statement
+assignment: "set" IDENTIFIER /(equal to)|(as)/ variable | "set" IDENTIFIER /(equal to)|(as)/ predicate_statement
 
 %import common.NUMBER
 %import common.WS_INLINE
