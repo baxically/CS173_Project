@@ -1,39 +1,41 @@
 start: "if" predicates "then" statements
 
-predicates: predicate
-    | predicate "and" predicates    -> predicate_and
-    | predicate "or" predicates     -> predicate_or           
-    | NEGATION predicates
+predicates:   predicate
+            | predicate "and" predicates    -> predicate_and
+            | predicate "or" predicates     -> predicate_or           
+            | NEGATION predicates
 
-predicate: variable | variable comparison_operator variable | predicate_statement comparison_operator variable
+predicate:    variable 
+            | variable comparison_operator variable 
+            | predicate_statement comparison_operator variable
 
 variable: NUMBER | IDENTIFIER
 
-IDENTIFIER: /[a-zA-Z_]+[a-zA-Z0-9_]*/
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]{0,254}/
 
 comparison_operator: EQUALS | NOT_EQUAL | GREATER | GREATER_OR_EQUAL | LESS | LESS_OR_EQUAL
 
-EQUALS: /equal(s)?/ | /is equal(s)? to/ | "="
+EQUALS: /equal(s)? (to)?/ | /is equal(s)? to/ | "="
 
 NOT_EQUAL: /(isn't|doesn't|is not|does not) equal (to)?/
 
 GREATER: /(is)? greater (than)?/ | ">" 
 
-GREATER_OR_EQUAL: /(is)? greater equal(s)? (than)?/
+GREATER_OR_EQUAL: /(is)? greater or equal(s)? (than)?/  | ">="
 
 LESS: /(is)? less (than)?/ | "<"
 
-LESS_OR_EQUAL: /(is)? less equal(s)? (than)?/
+LESS_OR_EQUAL: /(is)? less or equal(s)? (than)?/ | "<="
 
 predicate_statement: variable operator variable 
 
-operator: PLUS | MINUS | MULTIPLY | DIVIDE
+operator: PLUS | MINUS | MULTIPLY | DIVIDE | MODULO
 
 PLUS: "+" | "plus"
 
 MINUS: "-" | "minus"
 
-MULTIPLY: "*" | "multiply"
+MULTIPLY: "*" | "multiply" | "multiply by"
 
 DIVIDE: "/" | "divide"
 
@@ -42,13 +44,13 @@ MODULO: "modulo" | "mod" | "%"
 NEGATION: "!" | "not"
 
 statements: statement 
-    | statement "and" statements -> join_statements
+            | statement "and" statements -> join_statements
 
 statement: declaration | assignment
 
 declaration: "declare" IDENTIFIER "as" IDENTIFIER
 
-assignment: "set" IDENTIFIER "to" NUMBER
+assignment: "set" IDENTIFIER "equal to" variable | "set" IDENTIFIER "equal to" predicate_statement
 
 %import common.NUMBER
 %import common.WS_INLINE

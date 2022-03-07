@@ -18,10 +18,7 @@ class SpeechTree(Transformer):
             return str(data)
     
     def start(self, predicates, statements):
-        return f"""if ({predicates}) {{
-            {statements}
-        }}
-        """
+        return f"""if ({predicates}) \n{{\n{statements}\n}}"""
     
     def predicates(self, predicate):
         return str(predicate)
@@ -72,7 +69,7 @@ class SpeechTree(Transformer):
         return f"{stmt}\n{stmts}"
 
     def statement(self, stmt):
-        return f"{stmt};"
+        return f"\t{stmt};"
     
     def declaration(self, name, type):
         return f"{type} {name}"
@@ -94,7 +91,7 @@ def main():
 
 
 def test():
-    print(calc("a = 1+2"))
+    print("a = 1+2")
     # print(calc("1+a*-3"))
 
 
