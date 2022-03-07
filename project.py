@@ -25,6 +25,11 @@ except sr.RequestError as e:
 if speech_text_output:
     print("Parsing text...")
     try:
+        code = parse_speech(speech_text_output)
         print(parse_speech(speech_text_output))
+
+        fileName = input("What would you like to name your output?\n")
+        with open(fileName + ".cpp", 'w') as f:
+            f.write(code)
     except Exception as e:
         print(f"Error while parsing! {e}")
