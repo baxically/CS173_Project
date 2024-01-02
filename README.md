@@ -1,4 +1,5 @@
-# CS173_Project
+# Speech-to-Code
+A Python application that takes speech and converts it to C++ code.
 
 ## Installation
 1. Install python requirements via pip (`pip install -r requirements.txt`)
