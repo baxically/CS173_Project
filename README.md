@@ -1,5 +1,13 @@
 # Speech-to-Code
-A Python application that takes speech and converts it to C++ code.
+A Python application that takes speech and converts it to C++ code
+
+## Description
+Speech-to-Code was built using Python and Lark so that users do not have to specify syntax when using speech dictation to write code. Our current grammar allows for conversion of if-statements to C++ code. 
+
+## Authors
+- [Ally Thach](https://www.github.com/baxically)
+- [Mahdi Aouchiche](https://github.com/mahdi-aouchiche)
+- [Sanchit Goel](https://github.com/sanchitgoel01)
 
 ## Installation
 1. Install python requirements via pip (`pip install -r requirements.txt`)
